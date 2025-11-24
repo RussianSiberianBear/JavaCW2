@@ -68,20 +68,6 @@ class MathQuestionServiceTest {
     }
 
     @Test
-    void add_ShouldThrowErrorAddOperationException_WhenRepositoryThrowsException() {
-        String question = "What is 15/3?";
-        String answer = "5";
-
-        when(repository.add(eq(QuestionType.MATH), eq(question), eq(answer)))
-                .thenThrow(new RuntimeException("Database error"));
-
-        assertThrows(ErrorAddOperationException.class,
-                () -> mathQuestionService.add(question, answer));
-
-        verify(repository).add(QuestionType.MATH, question, answer);
-    }
-
-    @Test
     void remove_ShouldReturnRemovedQuestion_WhenRepositorySucceeds() {
         when(repository.remove(eq(QuestionType.MATH), eq(testQuestion)))
                 .thenReturn(testQuestion);
@@ -89,17 +75,6 @@ class MathQuestionServiceTest {
         Question result = mathQuestionService.remove(testQuestion);
 
         assertEquals(testQuestion, result);
-        verify(repository).remove(QuestionType.MATH, testQuestion);
-    }
-
-    @Test
-    void remove_ShouldThrowErrorRemoveOperationException_WhenRepositoryThrowsException() {
-        when(repository.remove(eq(QuestionType.MATH), eq(testQuestion)))
-                .thenThrow(new RuntimeException("Database error"));
-
-        assertThrows(ErrorRemoveOperationException.class,
-                () -> mathQuestionService.remove(testQuestion));
-
         verify(repository).remove(QuestionType.MATH, testQuestion);
     }
 
@@ -117,28 +92,6 @@ class MathQuestionServiceTest {
     }
 
     @Test
-    void getAll_ShouldThrowErrorGetAllQuestionException_WhenRepositoryThrowsException() {
-        when(repository.getAll(eq(QuestionType.MATH)))
-                .thenThrow(new RuntimeException("Database error"));
-
-        assertThrows(ErrorGetAllQuestionException.class,
-                () -> mathQuestionService.getAll());
-
-        verify(repository).getAll(QuestionType.MATH);
-    }
-
-    @Test
-    void getAll_ShouldThrowErrorGetAllQuestionException_WhenRepositoryIsEmpty() {
-        when(repository.getAll(eq(QuestionType.MATH)))
-                .thenThrow(new QuestionRepositoryIsEmptyException());
-
-        assertThrows(ErrorGetAllQuestionException.class,
-                () -> mathQuestionService.getAll());
-
-        verify(repository).getAll(QuestionType.MATH);
-    }
-
-    @Test
     void getRandomQuestion_ShouldReturnRandomQuestion_WhenQuestionsExist() {
         List<Question> questionList = List.copyOf(testQuestions);
         when(repository.getAll(eq(QuestionType.MATH)))
@@ -148,28 +101,6 @@ class MathQuestionServiceTest {
 
         assertNotNull(result);
         assertTrue(questionList.contains(result));
-        verify(repository).getAll(QuestionType.MATH);
-    }
-
-    @Test
-    void getRandomQuestion_ShouldThrowErrorGetRandomQuestionException_WhenGetAllThrowsException() {
-        when(repository.getAll(eq(QuestionType.MATH)))
-                .thenThrow(new RuntimeException("Database error"));
-
-        assertThrows(ErrorGetRandomQuestionException.class,
-                () -> mathQuestionService.getRandomQuestion());
-
-        verify(repository).getAll(QuestionType.MATH);
-    }
-
-    @Test
-    void getRandomQuestion_ShouldThrowErrorGetRandomQuestionException_WhenRepositoryIsEmpty() {
-        when(repository.getAll(eq(QuestionType.MATH)))
-                .thenThrow(new QuestionRepositoryIsEmptyException());
-
-        assertThrows(ErrorGetRandomQuestionException.class,
-                () -> mathQuestionService.getRandomQuestion());
-
         verify(repository).getAll(QuestionType.MATH);
     }
 

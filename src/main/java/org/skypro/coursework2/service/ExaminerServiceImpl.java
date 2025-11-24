@@ -1,7 +1,6 @@
 package org.skypro.coursework2.service;
 
 import org.skypro.coursework2.exception.QuestionsNumbersIsLargeException;
-import org.skypro.coursework2.interfaces.ExaminerService;
 import org.skypro.coursework2.model.Question;
 import org.skypro.coursework2.model.QuestionType;
 import org.skypro.coursework2.repository.CommonQuestionRepository;

@@ -1,4 +1,4 @@
-package org.skypro.coursework2.interfaces;
+package org.skypro.coursework2.service;
 
 import org.skypro.coursework2.model.Question;
 

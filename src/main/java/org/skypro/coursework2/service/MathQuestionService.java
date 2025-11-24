@@ -37,5 +37,5 @@ public class MathQuestionService extends CommonQuestionService {
         throw new MathOperationNotAllowedException();
     }
 
- */
+*/
 }

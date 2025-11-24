@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.skypro.coursework2.exception.QuestionNotFoundException;
+import org.skypro.coursework2.exception.QuestionRepositoryIsEmptyException;
 import org.skypro.coursework2.exception.QuestionTypeAllInvalidException;
 import org.skypro.coursework2.model.Question;
 import org.skypro.coursework2.model.QuestionType;
@@ -103,10 +104,18 @@ class CommonQuestionRepositoryTest {
     void add_ShouldThrowNullPointerException_WhenTypeDoesNotExist() {
         // Arrange
         repositoryMap.remove(QuestionType.JAVA);
+        // Arrange
+        String newQuestion = "Question JAVA";
+        String newAnswer = "Answer JAVA";
 
-        // Act & Assert
-        assertThrows(NullPointerException.class,
-                () -> repository.add(QuestionType.JAVA, "Test", "Answer"));
+        // Act
+        Question result = repository.add(QuestionType.JAVA, newQuestion, newAnswer);
+
+        // Assert
+        assertNotNull(result);
+        assertEquals(newQuestion, result.getQuestion());
+        assertEquals(newAnswer, result.getAnswer());
+        assertTrue(repositoryMap.get(QuestionType.JAVA).contains(result));
     }
 
     // Тесты для метода remove()
@@ -152,12 +161,12 @@ class CommonQuestionRepositoryTest {
     }
 
     @Test
-    void remove_ShouldThrowNullPointerException_WhenTypeDoesNotExist() {
+    void remove_ShouldThrowQuestionRepositoryIsEmptyException_WhenTypeDoesNotExist() {
         // Arrange
         repositoryMap.remove(QuestionType.JAVA);
 
         // Act & Assert
-        assertThrows(NullPointerException.class,
+        assertThrows(QuestionRepositoryIsEmptyException.class,
                 () -> repository.remove(QuestionType.JAVA, javaQuestion1));
     }
 
@@ -203,16 +212,12 @@ class CommonQuestionRepositoryTest {
     }
 
     @Test
-    void getAll_ShouldReturnEmptyCollection_WhenTypeHasNoQuestions() {
+    void getAll_ShouldThrowQuestionRepositoryIsEmptyException_WhenTypeHasNoQuestions() {
         // Arrange - очищаем один из типов
         repositoryMap.get(QuestionType.MATH).clear();
 
-        // Act
-        Collection<Question> result = repository.getAll(QuestionType.MATH);
-
-        // Assert
-        assertNotNull(result);
-        assertTrue(result.isEmpty());
+        assertThrows(QuestionRepositoryIsEmptyException.class,
+                () -> repository.getAll(QuestionType.MATH));
     }
 
     @Test
@@ -313,16 +318,13 @@ class CommonQuestionRepositoryTest {
     }
 
     @Test
-    void getAll_ShouldWorkWithEmptyRepository() {
+    void getAll_ShouldThrowQuestionRepositoryIsEmptyException_WhenEmptyRepository() {
         // Arrange
         CommonQuestionRepository emptyRepository = new CommonQuestionRepository();
 
         // Act
-        Collection<Question> result = emptyRepository.getAll(QuestionType.ALL);
-
-        // Assert
-        assertNotNull(result);
-        assertTrue(result.isEmpty());
+        assertThrows(QuestionRepositoryIsEmptyException.class,
+                () -> emptyRepository.getAll(QuestionType.ALL));
     }
 
     @Test

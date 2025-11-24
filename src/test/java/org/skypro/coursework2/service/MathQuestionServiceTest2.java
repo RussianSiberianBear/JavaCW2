@@ -8,8 +8,6 @@ import org.skypro.coursework2.exception.MathOperationNotAllowedException;
 import org.skypro.coursework2.model.Question;
 import org.skypro.coursework2.repository.CommonQuestionRepository;
 
-import java.util.Collection;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(MockitoExtension.class)

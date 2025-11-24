@@ -38,21 +38,6 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
     }
 
-    @ExceptionHandler(ErrorAddOperationException.class)
-    public ResponseEntity<?> handleErrorAddOperationException(ErrorAddOperationException e) {
-        return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
-    }
-
-    @ExceptionHandler(ErrorRemoveOperationException.class)
-    public ResponseEntity<?> handleErrorRemoveOperationException(ErrorRemoveOperationException e) {
-        return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
-    }
-
-    @ExceptionHandler(ErrorGetAllQuestionException.class)
-    public ResponseEntity<?> handleErrorGetAllQuestionException(ErrorGetAllQuestionException e) {
-        return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
-    }
-
     @ExceptionHandler(MathOperationNotAllowedException.class)
     public ResponseEntity<?> handleMathOperationNotAllowedException(MathOperationNotAllowedException e) {
         return new ResponseEntity<>(e.getMessage(), HttpStatus.METHOD_NOT_ALLOWED);

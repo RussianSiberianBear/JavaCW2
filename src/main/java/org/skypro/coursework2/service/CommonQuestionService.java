@@ -1,7 +1,5 @@
 package org.skypro.coursework2.service;
 
-import org.skypro.coursework2.exception.*;
-import org.skypro.coursework2.interfaces.QuestionService;
 import org.skypro.coursework2.model.Question;
 import org.skypro.coursework2.model.QuestionType;
 import org.skypro.coursework2.repository.CommonQuestionRepository;
@@ -22,43 +20,24 @@ public class CommonQuestionService implements QuestionService {
 
     @Override
     public Question add(String question, String answer) {
-        try {
-            return repository.add(this.type, question, answer);
-        } catch (Exception e) {
-            throw new ErrorAddOperationException();
-        }
+        return repository.add(this.type, question, answer);
     }
 
     @Override
     public Question remove(Question question) {
-        try {
-            return repository.remove(this.type, question);
-        } catch (Exception e) {
-            throw new ErrorRemoveOperationException();
-        }
+        return repository.remove(this.type, question);
     }
 
     @Override
     public Collection<Question> getAll() {
-        try {
-            return repository.getAll(this.type);
-        } catch (QuestionNotFoundException e) {
-            // Пробрасываем QuestionNotFoundException дальше
-            throw e;
-        } catch (Exception e) {
-            throw new ErrorGetAllQuestionException();
-        }
+        return repository.getAll(this.type);
     }
 
     @Override
     public Question getRandomQuestion() {
-        try {
-            Collection<Question> questions = this.getAll();
-            List<Question> questionList = questions instanceof List ?
-                    (List<Question>) questions : new ArrayList<>(questions);
-            return questionList.get(new Random().nextInt(questionList.size()));
-        } catch (Exception e) {
-            throw new ErrorGetRandomQuestionException();
-        }
+        Collection<Question> questions = this.getAll();
+        List<Question> questionList = questions instanceof List ?
+                (List<Question>) questions : new ArrayList<>(questions);
+        return questionList.get(new Random().nextInt(questionList.size()));
     }
 }

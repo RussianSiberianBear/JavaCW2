@@ -3,7 +3,6 @@ package org.skypro.coursework2.repository;
 import org.skypro.coursework2.exception.QuestionNotFoundException;
 import org.skypro.coursework2.exception.QuestionRepositoryIsEmptyException;
 import org.skypro.coursework2.exception.QuestionTypeAllInvalidException;
-import org.skypro.coursework2.interfaces.QuestionRepository;
 import org.skypro.coursework2.model.Question;
 import org.skypro.coursework2.model.QuestionType;
 import org.springframework.stereotype.Repository;
@@ -42,8 +41,15 @@ public class CommonQuestionRepository implements QuestionRepository {
             throw new QuestionTypeAllInvalidException();
         }
 
+        if (repository.isEmpty()) {
+            throw new QuestionRepositoryIsEmptyException();
+        }
+
         if (repository.containsKey(type)) {
             HashSet<Question> set = repository.get(type);
+            if (set.isEmpty()) {
+                throw new QuestionRepositoryIsEmptyException();
+            }
             if (!set.contains(question)) {
                 throw new QuestionNotFoundException();
             }
