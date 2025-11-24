@@ -16,7 +16,7 @@ public class MathQuestionController {
         this.service = service;
     }
 
-    @GetMapping("/add?")
+    @GetMapping("/add")
     public ResponseEntity<?> addQuestion(@RequestParam("question")String question, @RequestParam("answer") String answer) {
 
         if ((question.isBlank()) || answer.isBlank()) {
