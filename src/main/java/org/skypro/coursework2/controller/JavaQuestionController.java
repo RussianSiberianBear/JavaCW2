@@ -26,7 +26,7 @@ public class JavaQuestionController {
         return ResponseEntity.status(200).body(service.add(question, answer));
     }
 
-    @GetMapping("/remove?")
+    @GetMapping("/remove")
     public ResponseEntity<?> removeQuestion(@RequestParam("question") String question, @RequestParam("answer") String answer) {
 
         if ((question.isBlank()) || answer.isBlank()) {
