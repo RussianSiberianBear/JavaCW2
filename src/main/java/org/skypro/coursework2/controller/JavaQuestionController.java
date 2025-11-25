@@ -13,7 +13,6 @@ public class JavaQuestionController {
     private final JavaQuestionService service;
 
     public JavaQuestionController(JavaQuestionService service) {
-
         this.service = service;
     }
 
@@ -37,7 +36,6 @@ public class JavaQuestionController {
 
     @GetMapping("/find")
     public ResponseEntity<?> findQuestion() {
-
         return ResponseEntity.status(200).body(service.getAll());
     }
 

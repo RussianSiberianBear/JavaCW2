@@ -17,7 +17,7 @@ public class MathQuestionController {
     }
 
     @GetMapping("/add")
-    public ResponseEntity<?> addQuestion(@RequestParam("question")String question, @RequestParam("answer") String answer) {
+    public ResponseEntity<?> addQuestion(@RequestParam("question") String question, @RequestParam("answer") String answer) {
 
         if ((question.isBlank()) || answer.isBlank()) {
             throw new QuestionOrAnswerIsBlankException();
@@ -26,7 +26,7 @@ public class MathQuestionController {
     }
 
     @GetMapping("/remove")
-    public ResponseEntity<?> removeQuestion(@RequestParam("question")String question, @RequestParam("answer") String answer) {
+    public ResponseEntity<?> removeQuestion(@RequestParam("question") String question, @RequestParam("answer") String answer) {
 
         if ((question.isBlank()) || answer.isBlank()) {
             throw new QuestionOrAnswerIsBlankException();
@@ -36,7 +36,6 @@ public class MathQuestionController {
 
     @GetMapping("/find")
     public ResponseEntity<?> findQuestion() {
-
         return ResponseEntity.status(200).body(service.getAll());
     }
 

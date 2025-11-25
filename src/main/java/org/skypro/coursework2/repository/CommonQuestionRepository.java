@@ -58,7 +58,6 @@ public class CommonQuestionRepository implements QuestionRepository {
         } else {
             throw new QuestionRepositoryIsEmptyException();
         }
-
     }
 
     @Override
